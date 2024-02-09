@@ -1,0 +1,1720 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Script gui",
+   LoadingTitle = "Scripts",
+   LoadingSubtitle = "by AhmedulŞaban",
+   ConfigurationSaving = {
+      Enabled = False,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+   Discord = {
+      Enabled = True,
+      Invite = "https://discord.com/invite/VtVtKZW8Zh", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Get key",
+      Subtitle = "Key System",
+      Note = "https://discord.com/invite/VtVtKZW8Zh",
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = True, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"1234"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local SelfTab = Window:CreateTab("Player", nil) -- Title, Image
+local SelfSection = SelfTab:CreateSection("Player")
+
+local Input = SelfTab:CreateInput({
+   Name = "Walk Speed",
+   PlaceholderText = "1-500",
+   RemoveTextAfterFocusLost = true,
+   Callback = function(Text)
+      game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Text)
+   end,
+})
+
+local Input = SelfTab:CreateInput({
+   Name = "Jump Power",
+   PlaceholderText = "1-500",
+   RemoveTextAfterFocusLost = true,
+   Callback = function(Text)
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Text)
+   end,
+})
+
+local Button = SelfTab:CreateButton({
+   Name = "SuperHuman",
+   Callback = function()
+       game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (70)
+     game.Players.LocalPlayer.Character.Humanoid.JumpPower = (130)
+   end,
+})
+
+
+local Button = SelfTab:CreateButton({
+   Name = "İnfiniteJump",
+   Callback = function()
+local infjmp = true
+game:GetService("UserInputService").jumpRequest:Connect(function()
+    if infjmp then
+        game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass"Humanoid":ChangeState("Jumping")
+    end
+end)
+   end,
+})
+
+local SelfSection = SelfTab:CreateSection("Reset Speed JumpPower SuperHuman")
+
+local Button = SelfTab:CreateButton({
+   Name = "Reset",
+   Callback = function()
+         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (16)
+     game.Players.LocalPlayer.Character.Humanoid.JumpPower = (50)
+   end,
+})
+
+local SelfSection = SelfTab:CreateSection("Noclip")
+
+local Button = SelfTab:CreateButton({
+   Name = "Noclip Uİ",
+   Callback = function()
+         -- made by me (Nigger)
+
+local Workspace = game:GetService("Workspace")
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local Noclip = Instance.new("ScreenGui")
+local BG = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Toggle = Instance.new("TextButton")
+local StatusPF = Instance.new("TextLabel")
+local Status = Instance.new("TextLabel")
+local Credit = Instance.new("TextLabel")
+local Plr = Players.LocalPlayer
+local Clipon = false
+
+Noclip.Name = "Noclip"
+Noclip.Parent = game.CoreGui
+
+BG.Name = "BG"
+BG.Parent = Noclip
+BG.BackgroundColor3 = Color3.new(0.0980392, 0.0980392, 0.0980392)
+BG.BorderColor3 = Color3.new(0.0588235, 0.0588235, 0.0588235)
+BG.BorderSizePixel = 2
+BG.Position = UDim2.new(0.149479166, 0, 0.82087779, 0)
+BG.Size = UDim2.new(0, 210, 0, 127)
+BG.Active = true
+BG.Draggable = true
+
+Title.Name = "Title"
+Title.Parent = BG
+Title.BackgroundColor3 = Color3.new(0.266667, 0.00392157, 0.627451)
+Title.BorderColor3 = Color3.new(0.180392, 0, 0.431373)
+Title.BorderSizePixel = 2
+Title.Size = UDim2.new(0, 210, 0, 33)
+Title.Font = Enum.Font.Highway
+Title.Text = "Noclip"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.FontSize = Enum.FontSize.Size32
+Title.TextSize = 30
+Title.TextStrokeColor3 = Color3.new(0.180392, 0, 0.431373)
+Title.TextStrokeTransparency = 0
+
+Toggle.Parent = BG
+Toggle.BackgroundColor3 = Color3.new(0.266667, 0.00392157, 0.627451)
+Toggle.BorderColor3 = Color3.new(0.180392, 0, 0.431373)
+Toggle.BorderSizePixel = 2
+Toggle.Position = UDim2.new(0.152380958, 0, 0.374192119, 0)
+Toggle.Size = UDim2.new(0, 146, 0, 36)
+Toggle.Font = Enum.Font.Highway
+Toggle.FontSize = Enum.FontSize.Size28
+Toggle.Text = "Toggle"
+Toggle.TextColor3 = Color3.new(1, 1, 1)
+Toggle.TextSize = 25
+Toggle.TextStrokeColor3 = Color3.new(0.180392, 0, 0.431373)
+Toggle.TextStrokeTransparency = 0
+
+StatusPF.Name = "StatusPF"
+StatusPF.Parent = BG
+StatusPF.BackgroundColor3 = Color3.new(1, 1, 1)
+StatusPF.BackgroundTransparency = 1
+StatusPF.Position = UDim2.new(0.314285725, 0, 0.708661377, 0)
+StatusPF.Size = UDim2.new(0, 56, 0, 20)
+StatusPF.Font = Enum.Font.Highway
+StatusPF.FontSize = Enum.FontSize.Size24
+StatusPF.Text = "Status:"
+StatusPF.TextColor3 = Color3.new(1, 1, 1)
+StatusPF.TextSize = 20
+StatusPF.TextStrokeColor3 = Color3.new(0.333333, 0.333333, 0.333333)
+StatusPF.TextStrokeTransparency = 0
+StatusPF.TextWrapped = true
+
+Status.Name = "Status"
+Status.Parent = BG
+Status.BackgroundColor3 = Color3.new(1, 1, 1)
+Status.BackgroundTransparency = 1
+Status.Position = UDim2.new(0.580952346, 0, 0.708661377, 0)
+Status.Size = UDim2.new(0, 56, 0, 20)
+Status.Font = Enum.Font.Highway
+Status.FontSize = Enum.FontSize.Size14
+Status.Text = "off"
+Status.TextColor3 = Color3.new(0.666667, 0, 0)
+Status.TextScaled = true
+Status.TextSize = 14
+Status.TextStrokeColor3 = Color3.new(0.180392, 0, 0.431373)
+Status.TextWrapped = true
+Status.TextXAlignment = Enum.TextXAlignment.Left
+
+Credit.Name = "Credit"
+Credit.Parent = BG
+Credit.BackgroundColor3 = Color3.new(1, 1, 1)
+Credit.BackgroundTransparency = 1
+Credit.Position = UDim2.new(0.195238099, 0, 0.866141737, 0)
+Credit.Size = UDim2.new(0, 128, 0, 17)
+Credit.Font = Enum.Font.SourceSans
+Credit.FontSize = Enum.FontSize.Size18
+Credit.Text = "Created by Sheepz"
+Credit.TextColor3 = Color3.new(1, 1, 1)
+Credit.TextSize = 16
+Credit.TextStrokeColor3 = Color3.new(0.196078, 0.196078, 0.196078)
+Credit.TextStrokeTransparency = 0
+Credit.TextWrapped = true
+
+Toggle.MouseButton1Click:connect(function()
+	if Status.Text == "off" then
+		Clipon = true
+		Status.Text = "on"
+		Status.TextColor3 = Color3.new(0,185,0)
+		Stepped = game:GetService("RunService").Stepped:Connect(function()
+			if not Clipon == false then
+				for a, b in pairs(Workspace:GetChildren()) do
+                if b.Name == Plr.Name then
+                for i, v in pairs(Workspace[Plr.Name]:GetChildren()) do
+                if v:IsA("BasePart") then
+                v.CanCollide = false
+                end end end end
+			else
+				Stepped:Disconnect()
+			end
+		end)
+	elseif Status.Text == "on" then
+		Clipon = false
+		Status.Text = "off"
+		Status.TextColor3 = Color3.new(170,0,0)
+	end
+end)
+   end,
+})
+
+local SelfSection = SelfTab:CreateSection("Teleport")
+
+local Button = SelfTab:CreateButton({
+   Name = "TPTool",
+   Callback = function()
+         mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "TPTool"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+   end,
+})
+
+local Button = SelfTab:CreateButton({
+   Name = "TweenTPTool",
+   Callback = function()
+         getgenv().speed = 250 -- Change this to control the speed of the tool
+ 
+-- Script
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+ 
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Mouse = LocalPlayer:GetMouse()
+ 
+function tweenTeleport(to, speed)
+    local rootPart = Character.HumanoidRootPart
+    local tween = TweenService:Create(rootPart, TweenInfo.new((to.Position - rootPart.Position).Magnitude / speed, Enum.EasingStyle.Linear), {
+        CFrame = to
+    })
+ 
+    tween:Play()
+    tween.Completed:Wait()
+end
+ 
+-- Teleport Tool
+local tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Teleport Tool"
+ 
+tool.Activated:connect(function()
+    local position = Mouse.Hit + Vector3.new(0, 2.5, 0)
+    tweenTeleport(CFrame.new(position.X, position.Y, position.Z), getgenv().speed)
+end)
+ 
+tool.Parent = LocalPlayer.Backpack
+   end,
+})
+
+local Button = SelfTab:CreateButton({
+   Name = "Teleport(Q)",
+   Callback = function()
+         loadstring(game:HttpGet(('https://pastebin.com/raw/qyww70GR'),true))()
+   end,
+})
+
+local SelfSection = SelfTab:CreateSection("Camera")
+
+local Button = SelfTab:CreateButton({
+   Name = "Free Cam",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/CameraSpy/main/Script", true))()
+   end,
+})
+
+local Button = SelfTab:CreateButton({
+   Name = "Camera Noclip",
+   Callback = function()
+         if not game:IsLoaded() then
+    game.Loaded:wait()
+end
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PopperClient = LocalPlayer:WaitForChild("PlayerScripts").PlayerModule.CameraModule.ZoomController.Popper
+
+for i, v in next, getgc() do
+    if getfenv(v).script == PopperClient and typeof(v) == "function" then
+        for i2, v2 in next, debug.getconstants(v) do
+            if tonumber(v2) == 0.25 then
+                debug.setconstant(v, i2, 0)
+            elseif tonumber(v2) == 0 then
+                debug.setconstant(v, i2, 0.25)
+            end
+        end
+    end
+end
+   end,
+})
+
+local DahoodTab = Window:CreateTab("Dahood", Nil) -- Title, Image
+local DahoodSection = DahoodTab:CreateSection("GUİ'S")
+
+Rayfield:Notify({
+   Title = "Look!",
+   Content = "Nigga",
+   Duration = 5,
+   Image = Nil,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "ım not nigga",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Agent",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/mrhackerman35297/AgentCC/main/Launch.lua"))()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Faded",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/NighterEpic/Faded/main/YesEpic", true))()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Swagmod",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/lerkermer/lua-projects/master/SwagModeV002"))()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Nukermode",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/Allvideo/test/main/Whitelist.txt"))()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Pluto",
+   Callback = function()
+         loadstring(game:HttpGet('https://raw.githubusercontent.com/Scrvpter/Pluto/Lua/Loader.Lua', true))();
+   end,
+})
+
+local DahoodSection = DahoodTab:CreateSection("AİM")
+
+local Button = DahoodTab:CreateButton({
+   Name = "Blazed",
+   Callback = function()
+         loadstring(game:HttpGet("https://blazed.lol/source.lua",true))()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Mobile camlock",
+   Callback = function()
+         local Settings = {
+    rewrittenmain = {
+        Enabled = true,
+        Key = "q",
+        DOT = true,
+        AIRSHOT = true,
+        NOTIF = true, 
+        AUTOPRED = false, 
+        FOV = math.huge,
+        RESOVLER = false 
+    }
+}
+ 
+local SelectedPart = "UpperTorso"                              
+local Prediction = true
+local PredictionValue = 0.1259910                            
+ 
+ 
+    local AnchorCount = 0
+    local MaxAnchor = 50
+ 
+    local CC = game:GetService"Workspace".CurrentCamera
+    local Plr;
+    local enabled = false
+    local accomidationfactor = 0.12348
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local placemarker = Instance.new("Part", game.Workspace)
+ 
+    function makemarker(Parent, Adornee, Color, Size, Size2)
+        local e = Instance.new("BillboardGui", Parent)
+        e.Name = "PP"
+        e.Adornee = Adornee
+        e.Size = UDim2.new(Size, Size2, Size, Size2)
+        e.AlwaysOnTop = Settings.rewrittenmain.DOT
+        local a = Instance.new("Frame", e)
+        if Settings.rewrittenmain.DOT == true then
+        a.Size = UDim2.new(2, 2, 2)
+        else
+        a.Size = UDim2.new(0, 0, 0, 0)
+        end
+        if Settings.rewrittenmain.DOT == true then
+        a.Transparency = 0
+        a.BackgroundTransparency = 0
+        else
+        a.Transparency = 1
+        a.BackgroundTransparency = 1
+        end
+        a.BackgroundColor3 = Color
+        local g = Instance.new("UICorner", a)
+        if Settings.rewrittenmain.DOT == false then
+        g.CornerRadius = UDim.new(0, 0)
+        else
+        g.CornerRadius = UDim.new(1, 1)
+        end
+        return(e)
+    end
+ 
+ 
+    local data = game.Players:GetPlayers()
+    function noob(player)
+        local character
+        repeat wait() until player.Character
+        local handler = makemarker(guimain, player.Character:WaitForChild(SelectedPart), Color3.fromRGB(68, 214, 44), 0.3, 3)
+        handler.Name = player.Name
+        player.CharacterAdded:connect(function(Char) handler.Adornee = Char:WaitForChild(SelectedPart) end)
+ 
+ 
+        spawn(function()                                    
+            while wait() do                                     
+                if player.Character then                                    
+                end                                    
+            end                                     
+        end)                                    
+    end                                    
+ 
+    for i = 1, #data do
+        if data[i] ~= game.Players.LocalPlayer then
+            noob(data[i])
+        end
+    end
+ 
+    game.Players.PlayerAdded:connect(function(Player)
+        noob(Player)
+    end)
+ 
+    spawn(function()
+        placemarker.Anchored = true
+        placemarker.CanCollide = false
+        if Settings.rewrittenmain.DOT == true then
+        placemarker.Size = Vector3.new(6, 6, 6)
+        else
+        placemarker.Size = Vector3.new(0, 0, 0)
+        end
+        placemarker.Transparency = 1
+        if Settings.rewrittenmain.DOT then
+        makemarker(placemarker, placemarker, Color3.fromRGB(68, 214, 44), 0.40, 0)
+        end
+    end)
+ 
+    game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(k)
+        if k == Settings.rewrittenmain.Key and Settings.rewrittenmain.Enabled then
+            if enabled == true then
+                enabled = false
+                if Settings.rewrittenmain.NOTIF == true then
+                    Plr = getClosestPlayerToCursor()
+                game.StarterGui:SetCore("SendNotification", {
+						Title = "Lock Notification",
+						Text = "Unlocked",
+						Icon = "",
+						Duration = 1,
+})
+            end
+            else
+                Plr = getClosestPlayerToCursor()
+                enabled = true
+                if Settings.rewrittenmain.NOTIF == true then
+ 
+                    game.StarterGui:SetCore("SendNotification", {
+						Title = "Lock Notification",
+						Text = "Locked On :"..tostring(Plr.Name); 
+						Icon = "",
+						Duration = 1,
+})
+ 
+                end
+            end
+        end
+    end)
+ 
+ 
+ 
+    function getClosestPlayerToCursor()
+        local closestPlayer
+        local shortestDistance = Settings.rewrittenmain.FOV
+ 
+        for i, v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") then
+                local pos = CC:WorldToViewportPoint(v.Character.PrimaryPart.Position)
+                local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
+                if magnitude < shortestDistance then
+                    closestPlayer = v
+                    shortestDistance = magnitude
+                end
+            end
+        end
+        return closestPlayer
+    end
+ 
+    local pingvalue = nil;
+    local split = nil;
+    local ping = nil;
+ 
+    game:GetService"RunService".Stepped:connect(function()
+        if enabled and Plr.Character ~= nil and Plr.Character:FindFirstChild("HumanoidRootPart") then
+            placemarker.CFrame = CFrame.new(Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*accomidationfactor))
+        else
+            placemarker.CFrame = CFrame.new(0, 9999, 0)
+        end
+        if Settings.rewrittenmain.AUTOPRED == true then
+             pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+             split = string.split(pingvalue,'(')
+             ping = tonumber(split[1])
+            if ping < 130 then
+                PredictionValue = 0.151
+            elseif ping < 125 then
+                PredictionValue = 0.149
+            elseif ping < 110 then
+                PredictionValue = 0.146
+            elseif ping < 105 then
+                PredictionValue = 0.138
+            elseif ping < 90 then
+                PredictionValue = 0.136
+            elseif ping < 80 then
+                PredictionValue = 0.134
+            elseif ping < 70 then
+                PredictionValue = 0.131
+            elseif ping < 60 then
+                PredictionValue = 0.1229
+            elseif ping < 50 then
+                PredictionValue = 0.1225
+            elseif ping < 40 then
+                PredictionValue = 0.1256
+            end
+        end
+    end)
+ 
+    local mt = getrawmetatable(game)
+    local old = mt.__namecall
+    setreadonly(mt, false)
+    mt.__namecall = newcclosure(function(...)
+        local args = {...}
+        if enabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" and Settings.rewrittenmain.Enabled and Plr.Character ~= nil then
+ 
+            -- args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*accomidationfactor)
+            --[[
+            if Settings.rewrittenmain.AIRSHOT == true then
+                if game.Workspace.Players[Plr.Name].Humanoid:GetState() == Enum.HumanoidStateType.Freefall then -- Plr.Character:WaitForChild("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall
+ 
+                    --// Airshot
+                    args[3] = Plr.Character.LeftFoot.Position+(Plr.Character.LeftFoot.Velocity*PredictionValue)
+                else
+                    args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*PredictionValue)
+                end
+            else
+                    args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*PredictionValue)
+            end
+            ]]
+            if Prediction == true then
+ 
+            args[3] = Plr.Character[SelectedPart].Position+(Plr.Character[SelectedPart].Velocity*PredictionValue)
+ 
+            else
+ 
+            args[3] = Plr.Character[SelectedPart].Position
+ 
+            end
+ 
+            return old(unpack(args))
+        end
+        return old(...)
+    end)
+ 
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if Settings.rewrittenmain.RESOVLER == true and Plr.Character ~= nil and enabled and Settings.rewrittenmain.Enabled then
+        if Settings.rewrittenmain.AIRSHOT == true and enabled and Plr.Character ~= nil then
+ 
+            if game.Workspace.Players[Plr.Name].Humanoid:GetState() == Enum.HumanoidStateType.Freefall then -- Plr.Character:WaitForChild("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall
+ 
+                --// Airshot
+ 
+                --// Anchor Check
+ 
+                if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
+                    AnchorCount = AnchorCount + 1
+                    if AnchorCount >= MaxAnchor then
+                        Prediction = false
+                        wait(2)
+                        AnchorCount = 0;
+                    end
+                else
+                    Prediction = true
+                    AnchorCount = 0;
+                end
+ 
+                SelectedPart = "HumanoidRootPart"
+ 
+            else
+                --// Anchor Check
+ 
+                if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
+                    AnchorCount = AnchorCount + 1
+                    if AnchorCount >= MaxAnchor then
+                        Prediction = false
+                        wait(2)
+                        AnchorCount = 0;
+                    end
+                else
+                    Prediction = true
+                    AnchorCount = 0;
+                end
+ 
+                SelectedPart = "HumanoidRootPart"
+ 
+            end
+            else
+ 
+                --// Anchor Check
+ 
+                if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
+                    AnchorCount = AnchorCount + 1
+                    if AnchorCount >= MaxAnchor then
+                        Prediction = false
+                        wait(2)
+                        AnchorCount = 0;
+                    end
+                else
+                    Prediction = true
+                    AnchorCount = 0;
+                end
+ 
+                SelectedPart = "HumanoidRootPart"
+            end
+ 
+        else
+                SelectedPart = "HumanoidRootPart"
+        end
+    end)
+ 
+--the cam lock
+ 
+getgenv().Prediction = 0.143105125985120958176	
+getgenv().AimPart = "UpperTorso"	
+getgenv().Key = "Q"	
+getgenv().DisableKey = "P"	
+ 
+getgenv().FOV = true	
+getgenv().ShowFOV = false	
+getgenv().FOVSize = 55	
+ 
+--// Variables (Service)	
+ 
+local Players = game:GetService("Players")	
+local RS = game:GetService("RunService")	
+local WS = game:GetService("Workspace")	
+local GS = game:GetService("GuiService")	
+local SG = game:GetService("StarterGui")	
+ 
+--// Variables (regular)	
+ 
+local LP = Players.LocalPlayer	
+local Mouse = LP:GetMouse()	
+local Camera = WS.CurrentCamera	
+local GetGuiInset = GS.GetGuiInset	
+ 
+local AimlockState = true	
+local Locked	
+local Victim	
+ 
+local SelectedKey = getgenv().Key	
+local SelectedDisableKey = getgenv().DisableKey	
+ 
+--// Check if aimlock is loaded	
+ 
+if getgenv().Loaded == true then	
+    Notify("Aimlock is already loaded!")	
+    return	
+end	
+ 
+getgenv().Loaded = true	
+ 
+--// FOV Circle	
+ 
+local fov = Drawing.new("Circle")	
+fov.Filled = false	
+fov.Transparency = 1	
+fov.Thickness = 1	
+fov.Color = Color3.fromRGB(255, 255, 0)	
+fov.NumSides = 1000	
+ 
+--// Functions	
+ 
+function update()	
+    if getgenv().FOV == true then	
+        if fov then	
+fov.Radius = getgenv().FOVSize * 2	
+            fov.Visible = getgenv().ShowFOV	
+fov.Position = Vector2.new(Mouse.X, Mouse.Y + GetGuiInset(GS).Y)	
+ 
+            return fov	
+        end	
+    end	
+end	
+ 
+function WTVP(arg)	
+    return Camera:WorldToViewportPoint(arg)	
+end	
+ 
+function WTSP(arg)	
+    return Camera.WorldToScreenPoint(Camera, arg)	
+end	
+ 
+function getClosest()	
+    local closestPlayer	
+    local shortestDistance = math.huge	
+ 
+    for i, v in pairs(game.Players:GetPlayers()) do	
+        local notKO = v.Character:WaitForChild("BodyEffects")["K.O"].Value ~= true	
+        local notGrabbed = v.Character:FindFirstChild("GRABBING_COINSTRAINT") == nil	
+ 
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild(getgenv().AimPart) and notKO and notGrabbed then	
+            local pos = Camera:WorldToViewportPoint(v.Character.PrimaryPart.Position)	
+local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(Mouse.X, Mouse.Y)).magnitude	
+ 
+            if (getgenv().FOV) then	
+                if (fov.Radius > magnitude and magnitude < shortestDistance) then	
+                    closestPlayer = v	
+                    shortestDistance = magnitude	
+                end	
+            else	
+                if (magnitude < shortestDistance) then	
+                    closestPlayer = v	
+                    shortestDistance = magnitude	
+                end	
+            end	
+        end	
+    end	
+    return closestPlayer	
+end	
+ 
+--// Checks if key is down	
+ 
+Mouse.KeyDown:Connect(function(k)	
+    SelectedKey = SelectedKey:lower()	
+    SelectedDisableKey = SelectedDisableKey:lower()	
+    if k == SelectedKey then	
+        if AimlockState == true then	
+            Locked = not Locked	
+            if Locked then	
+                Victim = getClosest()	
+ 
+                Notify("Locked onto: "..tostring(Victim.Character.Humanoid.DisplayName))	
+            else	
+                if Victim ~= nil then	
+                    Victim = nil	
+ 
+                    Notify("Unlocked!")	
+                end	
+            end	
+        else	
+            Notify("Aimlock is not enabled!")	
+        end	
+    end	
+    if k == SelectedDisableKey then	
+        AimlockState = not AimlockState	
+    end	
+end)	
+ 
+--// Loop update FOV and loop camera lock onto target	
+ 
+RS.RenderStepped:Connect(function()	
+    update()	
+    if AimlockState == true then	
+        if Victim ~= nil then	
+            Camera.CFrame = CFrame.new(Camera.CFrame.p, Victim.Character[getgenv().AimPart].Position + Victim.Character[getgenv().AimPart].Velocity*getgenv().Prediction)	
+        end	
+    end	
+end)	
+	while wait() do
+        if getgenv().AutoPrediction == true then	
+        local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()	
+        local split = string.split(pingvalue,'(')	
+local ping = tonumber(split[1])	
+if ping < 225 then	
+getgenv().Prediction = 1.4	
+elseif ping < 215 then	
+getgenv().Prediction = 1.2	
+	elseif ping < 205 then
+getgenv().Prediction = 1.0	
+	elseif ping < 190 then
+getgenv().Prediction = 0.10	
+elseif ping < 180 then	
+getgenv().Prediction = 0.12	
+	elseif ping < 170 then
+getgenv().Prediction = 0.15	
+	elseif ping < 160 then
+getgenv().Prediction = 0.18	
+	elseif ping < 150 then
+getgenv().Prediction = 0.110	
+elseif ping < 140 then	
+getgenv().Prediction = 0.113	
+elseif ping < 130 then	
+getgenv().Prediction = 0.116	
+elseif ping < 120 then	
+getgenv().Prediction = 0.120	
+elseif ping < 110 then	
+getgenv().Prediction = 0.124	
+elseif ping < 105 then	
+getgenv().Prediction = 0.127	
+elseif ping < 90 then	
+getgenv().Prediction = 0.130	
+elseif ping < 80 then	
+getgenv().Prediction = 0.133	
+elseif ping < 70 then	
+getgenv().Prediction = 0.136	
+elseif ping < 60 then	
+getgenv().Prediction = 0.140	
+elseif ping < 50 then	
+getgenv().Prediction = 0.143	
+elseif ping < 40 then	
+getgenv().Prediction = 0.145	
+elseif ping < 30 then	
+getgenv().Prediction = 0.155	
+elseif ping < 20 then	
+getgenv().Prediction = 0.157	
+        end	
+        end	
+	end
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Nyula",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/nyulachan/nyula/main/nyulauh"))();
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Hitbox",
+   Callback = function()
+   -- Toggle
+getgenv().Target = true
+
+-- Configuration
+getgenv().Key = Enum.KeyCode.Q
+getgenv().Prediction = 0.160126357
+getgenv().ChatMode = false
+getgenv().NotifMode = true
+    getgenv().PartMode = true
+    getgenv().AirshotFunccc = false
+    getgenv().Partz = "HumanoidRootPart"
+getgenv().AutoPrediction = false
+getgenv().Fov = 100
+getgenv().Circle = true
+--
+    _G.Types = {
+        Ball = Enum.PartType.Ball,
+        Block = Enum.PartType.Block, 
+        Cylinder = Enum.PartType.Cylinder
+    }
+    
+    --variables                 
+    	local Tracer = Instance.new("Part", game.Workspace)
+    Tracer.Name = "gay"	
+    Tracer.Anchored = true		
+    Tracer.CanCollide = false
+    Tracer.Transparency = 0.2
+    Tracer.Parent = game.Workspace	
+    Tracer.Shape = _G.Types.Block
+    Tracer.Size = Vector3.new(7,7,7)
+    Tracer.Color = Color3.fromRGB(0, 0, 139)
+    
+    --
+    local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+local Runserv = game:GetService("RunService")
+
+circle = Drawing.new("Circle")
+circle.Color = Color3.fromRGB(25,25,25)
+circle.Thickness = 0
+circle.NumSides = 732
+circle.Radius = getgenv().Fov
+circle.Thickness = 0
+circle.Transparency = 0
+circle.Visible = getgenv().Circle
+circle.Filled = false
+
+Runserv.RenderStepped:Connect(function()
+    circle.Position = Vector2.new(mouse.X,mouse.Y+35)
+    if getgenv().AirshotFunccc == true then
+            if Plr ~= nil then else return; end
+            if Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
+                getgenv().Partz = "RightFoot"
+            else
+                Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old,new)
+                    if new == Enum.HumanoidStateType.Freefall then
+                    getgenv().Partz = "RightFoot"
+                    else
+                        getgenv().Partz = "HumanoidRootPart"
+                    end
+                end)
+            end
+end
+end)
+    
+    	local guimain = Instance.new("Folder", game.CoreGui)
+    	local CC = game:GetService"Workspace".CurrentCamera
+    local LocalMouse = game.Players.LocalPlayer:GetMouse()
+    	local Locking = false
+    
+    	
+    --
+    if getgenv().valiansh == true then
+                        game.StarterGui:SetCore("SendNotification", {
+                   Title = "funxpyware.cc",
+                   Text = "Already Loaded!",
+                   Duration = 5
+        
+                   })
+        return
+    end
+    
+    getgenv().valiansh = true
+    
+        local UserInputService = game:GetService("UserInputService")
+
+    UserInputService.InputBegan:Connect(function(keygo,ok)
+           if (not ok) then
+           if (keygo.KeyCode == getgenv().Key) then
+               if getgenv().Target == true then
+               Locking = not Locking
+               
+               if Locking then
+               Plr =  getClosestPlayerToCursor()
+                if getgenv().ChatMode then
+        local A_1 = "Target: "..tostring(Plr.Character.Humanoid.DisplayName) local A_2 = "All" local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest Event:FireServer(A_1, A_2) 
+        	end	
+               if getgenv().NotifMode then
+    			game.StarterGui:SetCore("SendNotification", {
+        Title = "funxpyware.cc";
+        Text = "Target: "..tostring(Plr.Character.Humanoid.DisplayName);
+    
+    })
+    end
+    elseif not Locking then
+         if getgenv().ChatMode then
+        local A_1 = "Unlocked!" local A_2 = "All" local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest Event:FireServer(A_1, A_2) 
+        	end	
+        if getgenv().NotifMode then
+                        game.StarterGui:SetCore("SendNotification", {
+                   Title = "funxpyware.cc",
+                   Text = "Unlocked",
+                   Duration = 5
+               })
+           elseif getgenv().Target == false then
+                        game.StarterGui:SetCore("SendNotification", {
+                   Title = "",
+                   Text = "Target left or died.",
+                   Duration = 5
+     
+                   })
+               
+               end
+                  
+ 
+ end     end   
+end
+end
+end)
+	
+	function getClosestPlayerToCursor()
+		local closestPlayer
+		local shortestDistance = circle.Radius
+
+		for i, v in pairs(game.Players:GetPlayers()) do
+			if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("LowerTorso") then
+				local pos = CC:WorldToViewportPoint(v.Character.PrimaryPart.Position)
+				local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(LocalMouse.X, LocalMouse.Y)).magnitude
+				if magnitude < shortestDistance then
+					closestPlayer = v
+					shortestDistance = magnitude
+				end
+			end
+		end
+		return closestPlayer
+	end
+--
+if getgenv().PartMode then
+	game:GetService"RunService".Stepped:connect(function()
+		if Locking and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
+			Tracer.CFrame = CFrame.new(Plr.Character.LowerTorso.Position+(Plr.Character.LowerTorso.Velocity*Prediction))
+		else
+			Tracer.CFrame = CFrame.new(0, 9999, 0)
+		end
+	end)
+end
+
+    
+    
+    --
+	local rawmetatable = getrawmetatable(game)
+	local old = rawmetatable.__namecall
+	setreadonly(rawmetatable, false)
+	rawmetatable.__namecall = newcclosure(function(...)
+		local args = {...}
+		if Locking and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
+			args[3] = Plr.Character[getgenv().Partz].Position+(Plr.Character[getgenv().Partz].Velocity*Prediction)
+			return old(unpack(args))
+		end
+		return old(...)
+	end)
+---
+	while wait() do
+	if getgenv().AutoPrediction == true then
+        local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+        local split = string.split(pingvalue,'(')
+        local ping = tonumber(split[1])
+        if ping < 130 then
+            getgenv().Prediction = 0.151
+        elseif ping < 125 then
+            getgenv().Prediction = 0.149
+        elseif ping < 110 then
+            getgenv().Prediction = 0.140
+        elseif ping < 105 then
+            getgenv().Prediction = 0.133
+        elseif ping < 90 then
+            getgenv().Prediction = 0.130
+        elseif ping < 80 then
+            getgenv().Prediction = 0.128
+        elseif ping < 70 then
+            getgenv().Prediction = 0.1230
+        elseif ping < 60 then
+            getgenv().Prediction = 0.1229
+        elseif ping < 50 then
+            getgenv().Prediction = 0.1225
+        elseif ping < 40 then
+            getgenv().Prediction = 0.1256
+        end
+	end
+    end
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "AntiLock",
+   Callback = function()
+         loadstring(game:HttpGet(('https://raw.githubusercontent.com/AvianProjects/Dahood/main/AntilockerV2'),true))()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "AimWiever",
+   Callback = function()
+         --KEY IS C
+
+getgenv().tog = false
+getgenv().key = "c"
+getgenv().X = 68756
+getgenv().Y = 100
+getgenv().Z = -344
+
+game:GetService("RunService").Heartbeat:Connect(function()
+        if getgenv().tog then
+                local vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(getgenv().X, getgenv().Y, getgenv().Z)
+                game:GetService("RunService").RenderStepped:Wait()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = vel
+        end
+end)
+
+game:GetService("Players").LocalPlayer:GetMouse().KeyDown:Connect(function(keyPressed)
+        if keyPressed == string.lower(getgenv().key) then
+                pcall(function()
+                        if getgenv().tog == false then
+                                getgenv().tog = true
+                                game.StarterGui:SetCore("SendNotification", {
+                                        Title = "Actyrn#7104",
+                                        Text = "AA Enabled" })
+                        elseif getgenv().tog == true then
+                                getgenv().tog = false
+                                game.StarterGui:SetCore("SendNotification", {
+                                        Title = "Actyrn#7104",
+                                        Text = "AA Disabled" })
+                        end
+                end)
+        end
+end)
+hookfunction(game.Players.LocalPlayer.IsInGroup, function() return true end)
+ 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nosssa/NossLock/main/VinGUI"))()
+   end,
+})
+
+local DahoodSection = DahoodTab:CreateSection("Misc")
+
+local Button = DahoodTab:CreateButton({
+   Name = "Right click ",
+   Callback = function()
+         loadstring(game:HttpGet('https://raw.githubusercontent.com/BalligusapoTT/BalligusapoTT/main/Leftclickballi'))()()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Fake macro",
+   Callback = function()
+         local AkaliNotif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))();
+local Notify = AkaliNotif.Notify;
+Notify({
+Description = "dm me for more scripts";
+Title = "szqa on discord";
+Duration = 15;
+});
+getgenv().Speed = true
+getgenv().FakeMacro = true
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Allvideo/nukermode/main/Kit%20tools.txt"))()
+   end,
+})
+
+local Button = DahoodTab:CreateButton({
+   Name = "Victim Menu",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/GS21Official/DH-VictimMenu-Script/main/Dh%20VictimMenu%3A%20Script"))()
+   end,
+})
+
+local MM2Tab = Window:CreateTab("MurdererMystery2", Nil) -- Title, Image
+local MM2Section = MM2Tab:CreateSection("Scripts")
+
+local Button = MM2Tab:CreateButton({
+   Name = "SYMPHONY",
+   Callback = function()
+          local a,b,c,d=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,"https://itsjidy.github.io/SymphonyHub/Loader.html"c(a and b, "Your Executor does not support.")a(b({Url=d,Method="GET"}).Body)()
+   end,
+})
+
+local Button = MM2Tab:CreateButton({
+   Name = "HighlightHub",
+   Callback = function()
+         loadstring(game:HttpGet('https://raw.githubusercontent.com/ThatSick/HighlightMM2/main/Free'))()
+   end,
+})
+
+
+local Button = MM2Tab:CreateButton({
+   Name = "KİDACHİ",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/KidichiHB/Kidachi/main/Scripts/MM2_V2"))()
+   end,
+})
+
+local Button = MM2Tab:CreateButton({
+   Name = "VYNİXU",
+   Callback = function()
+         loadstring(game:GetObjects("rbxassetid://4001118261")[1].Source)()
+   end,
+})
+
+local Button = MM2Tab:CreateButton({
+   Name = "NEXUS",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/F2B-HUB/F2B/main/HUB"))()
+   end,
+})
+
+local Button = MM2Tab:CreateButton({
+   Name = "SERVER NUKER",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/main/Nuke%20MM2"))()
+   end,
+})
+
+local AgeOfHeroesTab = Window:CreateTab("AgeOfHeroes", Nil) -- Title, Image
+local AgeOfHeroesSection = AgeOfHeroesTab:CreateSection("Age Of Heroes")
+
+local Button = AgeOfHeroesTab:CreateButton({
+   Name = "Helioso",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/DilapidatedSage/Helioso-Age-Of-Heros-Source/main/Helioso-AOH.txt"))()
+   end,
+})
+
+local Button = AgeOfHeroesTab:CreateButton({
+   Name = "Cylindrical",
+   Callback = function()
+         loadstring(game:HttpGet('https://github.com/bifungiji/the-scripter/raw/main/Finger'))()
+     
+   end,
+})
+
+local AgeOfHeroesSection = AgeOfHeroesTab:CreateSection("Cylindrical key: 5758092")
+
+local KeyboardTab = Window:CreateTab("Keyboard", nil) -- Title, Image
+local KeyboardSection = KeyboardTab:CreateSection("Keyboards")
+
+local Button = KeyboardTab:CreateButton({
+   Name = "Keyboard",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+   end,
+})
+
+local Button = KeyboardTab:CreateButton({
+   Name = "CustomKeyboard",
+   Callback = function()
+      -- Keyboard script By Red_BloxZ
+-- You screen will freeze for a few seconds when execute because it loading
+
+loadstring(game:HttpGet("https://gist.githubusercontent.com/RedZenXYZ/4d80bfd70ee27000660e4bfa7509c667/raw/da903c570249ab3c0c1a74f3467260972c3d87e6/KeyBoard%2520From%2520Ohio%2520Fr%2520Fr"))()
+   end,
+})
+
+local KeyboardSection = KeyboardTab:CreateSection("Tools")
+
+local Button = KeyboardTab:CreateButton({
+   Name = "Q Tool",
+   Callback = function()
+       getgenv().keytoclick = "Q"
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = keytoclick
+tool.Activated:connect(function()
+    local vim = game:service("VirtualInputManager")
+vim:SendKeyEvent(true, keytoclick, false, game)
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+wait(0.2)
+local AkaliNotif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))();
+local Notify = AkaliNotif.Notify;
+Notify({
+Description = "Shit";
+Title = " ";
+Duration = 5;
+});
+   end,
+})
+
+local Button = KeyboardTab:CreateButton({
+   Name = "X Tool",
+   Callback = function()
+         getgenv().keytoclick = "X"
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = keytoclick
+tool.Activated:connect(function()
+    local vim = game:service("VirtualInputManager")
+vim:SendKeyEvent(true, keytoclick, false, game)
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+wait(0.2)
+local AkaliNotif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))();
+local Notify = AkaliNotif.Notify;
+Notify({
+Description = "Shit";
+Title = " ";
+Duration = 5;
+});
+   end,
+})
+
+local Button = KeyboardTab:CreateButton({
+   Name = "W Tool",
+   Callback = function()
+         getgenv().keytoclick = "W"
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = keytoclick
+tool.Activated:connect(function()
+    local vim = game:service("VirtualInputManager")
+vim:SendKeyEvent(true, keytoclick, false, game)
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+wait(0.2)
+local AkaliNotif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))();
+local Notify = AkaliNotif.Notify;
+Notify({
+Description = "sus";
+Title = "sus";
+Duration = 5;
+});
+   end,
+})
+
+local Button = KeyboardTab:CreateButton({
+   Name = "P Tool",
+   Callback = function()
+         getgenv().keytoclick = "P"
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = keytoclick
+tool.Activated:connect(function()
+    local vim = game:service("VirtualInputManager")
+vim:SendKeyEvent(true, keytoclick, false, game)
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+wait(0.2)
+local AkaliNotif = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))();
+local Notify = AkaliNotif.Notify;
+Notify({
+Description = "sus";
+Title = "sus";
+Duration = 5;
+});
+   end,
+})
+
+local PrisonLifeTab = Window:CreateTab("PrisonLife", Nil) -- Title, Image
+local PrisonLifeSection = PrisonLifeTab:CreateSection("PrisonLife")
+
+local Button = PrisonLifeTab:CreateButton({
+   Name = "Tiger Admin",
+   Callback = function()
+         loadstring(game:HttpGet("https://pastebin.com/raw/rfAULQ83"))()
+   end,
+})
+
+local Button = PrisonLifeTab:CreateButton({
+   Name = "H4X Admin",
+   Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yTe..."))()
+   end,
+})
+
+local Button = PrisonLifeTab:CreateButton({
+   Name = "İmpact Hub",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/NoobExploits/scripts/main/MainScript.lua"))();
+   end,
+})
+
+
+
+local ArsenalTab = Window:CreateTab("Arsenal", nil) -- Title, Image
+local ArsenalSection = ArsenalTab:CreateSection("Arsenal")
+
+local Button = ArsenalTab:CreateButton({
+   Name = "Aim Esp",
+   Callback = function()
+         loadstring(game:HttpGet("https://scriptblox.com/raw/Arsenal-Script-by-Tbao-Hub-10265"))()
+   end,
+})
+
+local ESPTab = Window:CreateTab("ESP", nil) -- Title, Image
+local ESPSection = ESPTab:CreateSection("ESP")
+
+local Button = ESPTab:CreateButton({
+   Name = "ESP GUİ1",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/zzerexx/scripts/main/UniversalEspUI.lua"))()
+   end,
+})
+
+local Button = ESPTab:CreateButton({
+   Name = "ESP CHARM GUİ",
+   Callback = function()
+         
+   end,
+})
+
+local Button = ESPTab:CreateButton({
+   Name = "ESP BOX",
+   Callback = function()
+         local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/linemaster2/esp-library/main/library.lua"))();
+
+--// Master switch
+ESP.Enabled = true;
+
+--// Enable boxes
+ESP.ShowBox = true;
+
+--// Set the box type to corner
+ESP.BoxType = "Corner Box Esp";
+
+--// Enable names
+ESP.ShowName = False;
+
+--// Enable Healhbar
+ESP.ShowHealth = False;
+
+--// Enable tracers
+ESP.ShowTracer = False;
+
+--// Enable Distance
+ESP.ShowDistance = False;
+
+--[[
+    Enable skeletons: (currently broken)
+    ESP.ShowSkeletons = False;
+]]
+
+
+
+--[[
+    These are all the settings
+    local ESP_SETTINGS = {
+        BoxOutlineColor = Color3.new(0, 0, 0),
+        BoxColor = Color3.new(1, 1, 1),
+        NameColor = Color3.new(1, 1, 1),
+        HealthOutlineColor = Color3.new(0, 0, 0),
+        HealthHighColor = Color3.new(0, 1, 0),
+        HealthLowColor = Color3.new(1, 0, 0),
+        CharSize = Vector2.new(4, 6),
+        Teamcheck = false,
+        WallCheck = false,
+        Enabled = false,
+        ShowBox = false,
+        BoxType = "2D",
+        ShowName = false,
+        ShowHealth = false,
+        ShowDistance = false,
+        ShowSkeletons = false,
+        ShowTracer = false,
+        TracerColor = Color3.new(1, 1, 1), 
+        TracerThickness = 2,
+        SkeletonsColor = Color3.new(1, 1, 1),
+        TracerPosition = "Bottom",
+    }
+    ermm yep thats about it
+]]
+   end,
+})
+
+
+local CommandScriptsTab = Window:CreateTab("CommandScripts", nil) -- Title, Image
+local CommandScriptsSection = CommandScriptsTab:CreateSection("CommandScripts")
+
+local Button = CommandScriptsTab:CreateButton({
+   Name = "NamelessAdmin",
+   Callback = function()
+         loadstring(game:HttpGet('https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source'))()
+   end,
+})
+
+
+local Button = CommandScriptsTab:CreateButton({
+   Name = "İnfiniteYield",
+   Callback = function()
+          loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   end,
+})
+
+local Button = CommandScriptsTab:CreateButton({
+   Name = "Legs Admin",
+   Callback = function()
+             loadstring(game:HttpGet('https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua'))()
+   end,
+})
+
+local GuisTab = Window:CreateTab("Guis", Nil) -- Title, Image
+local GuisSection = GuisTab:CreateSection("Guis")
+
+local Button = GuisTab:CreateButton({
+   Name = "Fly Gui",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+   end,
+})
+
+
+local Button = GuisTab:CreateButton({
+   Name = "RTX GUİ",
+   Callback = function()
+         loadstring(game:HttpGet(('https://pastefy.app/xXkUxA0P/raw'),true))()
+   end,
+})
+
+local Button = GuisTab:CreateButton({
+   Name = "Size Gui",
+   Callback = function()
+       loadstring(game:HttpGet("https://pastebin.com/raw/gDmAuwhC",true))()
+   end,
+})
+
+local Button = GuisTab:CreateButton({
+   Name = "WalkFling Gui",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/Fling%20GUI"))()
+   end,
+})
+
+local Button = GuisTab:CreateButton({
+   Name = "TP İGui",
+   Callback = function()
+         loadstring(game:HttpGet('https://raw.githubusercontent.com/0Ben1/fe./dbb6ce6f6cee4f7a5c9e20d7b88e83db2a93bf25/Invisible%20GUI'))()
+   end,
+})
+
+local ChatTab = Window:CreateTab("Chat", nil) -- Title, Image
+local ChatSection = ChatTab:CreateSection("Chat")
+
+local Button = ChatTab:CreateButton({
+   Name = "Fake message",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/game-hax/uca/main/release/uca.min.lua"))()
+   end,
+})
+
+local Button = ChatTab:CreateButton({
+   Name = "Chat Bypass",
+   Callback = function()
+         loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-NEW-RBCByp-The-BEST-Chat-Bypasser-8299"))()
+   end,
+})
+
+local AimTab = Window:CreateTab("Aim", nil) -- Title, Image
+local AimSection = AimTab:CreateSection("Aim")
+
+local Button = AimTab:CreateButton({
+   Name = "Hitbox Aperander",
+   Callback = function()
+         -- Variables
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+-- Settings
+
+bind = "" 
+bind2 = "t"
+
+-- Script
+
+mouse.KeyDown:connect(function(key)
+if key == bind then
+player.Character.HumanoidRootPart.CFrame = CFrame.new(1254.09656, 137.906067, -172.128204)
+end
+end)
+
+mouse.KeyDown:connect(function(key2)
+if key2 == bind2 then
+_G.HeadSize = 10
+_G.Disabled = true
+
+
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.7
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end
+end)
+   end,
+})
+
+local Button = AimTab:CreateButton({
+   Name = "Hitbox Gui",
+   Callback = function()
+         loadstring(game:HttpGet("https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/HitboxExpander.lua"))()
+   end,
+})
+
+
+
+
+
+local FPSTab = Window:CreateTab("FPS", nil) -- Title, Image
+local FPSSection = FPSTab:CreateSection("FPS")
+
+local Button = FPSTab:CreateButton({
+   Name = "Low GFX",
+   Callback = function()
+         _G.Settings = {
+    Players = {
+        ["Ignore Me"] = true, -- Ignore your Character
+        ["Ignore Others"] = true-- Ignore other Characters
+    },
+    Meshes = {
+        Destroy = false, -- Destroy Meshes
+        LowDetail = False -- Low detail meshes (NOT SURE IT DOES ANYTHING)
+    },
+    Images = {
+        Invisible = true, -- Invisible Images
+        LowDetail = false, -- Low detail images (NOT SURE IT DOES ANYTHING)
+        Destroy = false, -- Destroy Images
+    },
+    ["No Particles"] = true, -- Disables all ParticleEmitter, Trail, Smoke, Fire and Sparkles
+    ["No Camera Effects"] = true, -- Disables all PostEffect's (Camera/Lighting Effects)
+    ["No Explosions"] = true, -- Makes Explosion's invisible
+    ["No Clothes"] = true, -- Removes Clothing from the game
+    ["Low Water Graphics"] = true, -- Removes Water Quality
+    ["No Shadows"] = true, -- Remove Shadows
+    ["Low Rendering"] = true, -- Lower Rendering
+    ["Low Quality Parts"] = true -- Lower quality parts
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
+   end,
+})
+
+local Button = FPSTab:CreateButton({
+   Name = "disable Effects",
+   Callback = function()
+         _G.Settings = {
+    Players = {
+        ["Ignore Me"] = true, -- Ignore your Character
+        ["Ignore Others"] = true-- Ignore other Characters
+    },
+    Meshes = {
+        Destroy = false, -- Destroy Meshes
+        LowDetail = False -- Low detail meshes (NOT SURE IT DOES ANYTHING)
+    },
+    Images = {
+        Invisible = false, -- Invisible Images
+        LowDetail = false, -- Low detail images (NOT SURE IT DOES ANYTHING)
+        Destroy = false, -- Destroy Images
+    },
+    ["No Particles"] = false, -- Disables all ParticleEmitter, Trail, Smoke, Fire and Sparkles
+    ["No Camera Effects"] = true, -- Disables all PostEffect's (Camera/Lighting Effects)
+    ["No Explosions"] = true, -- Makes Explosion's invisible
+    ["No Clothes"] = false, -- Removes Clothing from the game
+    ["Low Water Graphics"] = False, -- Removes Water Quality
+    ["No Shadows"] = False, -- Remove Shadows
+    ["Low Rendering"] = False, -- Lower Rendering
+    ["Low Quality Parts"] = false -- Lower quality parts
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
+   end,
+})
+
+local Button = FPSTab:CreateButton({
+   Name = "Disable Shadow",
+   Callback = function()
+         _G.Settings = {
+    Players = {
+        ["Ignore Me"] = true, -- Ignore your Character
+        ["Ignore Others"] = true-- Ignore other Characters
+    },
+    Meshes = {
+        Destroy = false, -- Destroy Meshes
+        LowDetail = False -- Low detail meshes (NOT SURE IT DOES ANYTHING)
+    },
+    Images = {
+        Invisible = false, -- Invisible Images
+        LowDetail = false, -- Low detail images (NOT SURE IT DOES ANYTHING)
+        Destroy = false, -- Destroy Images
+    },
+    ["No Particles"] = False, -- Disables all ParticleEmitter, Trail, Smoke, Fire and Sparkles
+    ["No Camera Effects"] = true, -- Disables all PostEffect's (Camera/Lighting Effects)
+    ["No Explosions"] = False, -- Makes Explosion's invisible
+    ["No Clothes"] = false, -- Removes Clothing from the game
+    ["Low Water Graphics"] = False, -- Removes Water Quality
+    ["No Shadows"] = true, -- Remove Shadows
+    ["Low Rendering"] = False, -- Lower Rendering
+    ["Low Quality Parts"] = False -- Lower quality parts
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
+   end,
+})
+
+local Button = FPSTab:CreateButton({
+   Name = "No fog",
+   Callback = function()
+         repeat task.wait() until game:IsLoaded()
+wait(5) -- extra load to ensure the script is working
+for i,v in pairs(game.Lighting:GetChildren()) do
+if v:IsA("") or v:IsA("Sky") or v:IsA("BlurEffect") or v:IsA("BloomEffect") or v:IsA("SunRaysEffect") then
+v:Destroy()
+end
+end
+
+game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+game.Lighting.Brightness = 1
+game.Lighting.ClockTime = 14
+game.Lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+game.Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+game.Lighting.ExposureCompensation = 0
+game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+game.Lighting.FogEnd = 999999999
+game.Lighting.GeographicLatitude = 41.733
+game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+game.Lighting.GlobalShadows = true
+game.Lighting.Changed:Connect(function()
+game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+game.Lighting.Brightness = 1
+game.Lighting.ClockTime = 14
+game.Lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+game.Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+game.Lighting.ExposureCompensation = 0
+game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+game.Lighting.FogEnd = 999999999
+game.Lighting.GeographicLatitude = 41.733
+game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+game.Lighting.GlobalShadows = true
+end)
+game.Lighting.DescendantAdded:Connect(function(obj)
+if obj:IsA("") or obj:IsA("Sky") or obj:IsA("BlurEffect") or obj:IsA("BloomEffect") or obj:IsA("SunRaysEffect") then
+obj:Destroy()
+end
+end)
+   end,
+})
